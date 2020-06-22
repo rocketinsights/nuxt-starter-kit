@@ -1,7 +1,8 @@
 
 export default {
-  // mode: 'universal',
-  mode: 'spa',
+  srcDir: 'src',
+  mode: 'universal',
+  dev: process.env.NODE_ENV !== 'production',
   /*
   ** Headers of the page
   */
@@ -19,7 +20,10 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#1281BA',
+    height: '2px'
+  },
   /*
   ** Global CSS
   */
