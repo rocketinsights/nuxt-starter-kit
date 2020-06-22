@@ -45,6 +45,7 @@ export default {
   */
   plugins: [
     { src: '@/plugins/nuxt-client-init', mode: 'client' },
+    { src: '@/plugins/analytics', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules
