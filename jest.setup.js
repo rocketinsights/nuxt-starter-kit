@@ -1,6 +1,6 @@
-import _ from "lodash";
-import { Nuxt, Builder } from "nuxt";
-import nuxtConfig from "./nuxt.config";
+import _ from "lodash"
+import { Nuxt, Builder } from "nuxt"
+import nuxtConfig from "./nuxt.config"
 
 const resetConfig = {
   loading: false,
@@ -29,21 +29,21 @@ const resetConfig = {
     indicator: false,
     terser: false
   }
-};
-
-const config = Object.assign({}, nuxtConfig, resetConfig, {
-  mode: "spa",
-  srcDir: nuxtConfig.srcDir,
-  ignore: ["**/components/**/*", "**/layouts/**/*", "**/pages/**/*"]
-});
+}
 
 const buildNuxt = async () => {
-  const nuxt = new Nuxt(config);
-  await new Builder(nuxt).build();
-  return nuxt;
-};
+  const config = Object.assign({}, nuxtConfig, resetConfig, {
+    mode: "spa",
+    srcDir: nuxtConfig.srcDir,
+    ignore: ["**/components/**/*", "**/layouts/**/*", "**/pages/**/*"]
+  })
+
+  const nuxt = new Nuxt(config)
+  await new Builder(nuxt).build()
+  return nuxt
+}
 
 module.exports = async () => {
-  const nuxt = await buildNuxt();
-  process.env.buildDir = nuxt.options.buildDir;
-};
+  const nuxt = await buildNuxt()
+  process.env.buildDir = nuxt.options.buildDir
+}

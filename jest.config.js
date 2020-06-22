@@ -1,8 +1,8 @@
 module.exports = {
   globalSetup: "<rootDir>/jest.setup.js",
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/$1",
-    "^~/(.*)$": "<rootDir>/$1",
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^~/(.*)$": "<rootDir>/src/$1",
     "^vue$": "vue/dist/vue.common.js"
   },
   moduleFileExtensions: ["js", "vue", "json"],
@@ -12,6 +12,6 @@ module.exports = {
     ".*\\.(vue)$": "vue-jest"
   },
   collectCoverage: true,
-  collectCoverageFrom: ["<rootDir>/store/**/*.(vue|js)"],
+  collectCoverageFrom: ["<rootDir>/src/store/**/*.(vue|js)"],
   forceExit: !!process.env.CI // almost every CI platform sets this by default
 };

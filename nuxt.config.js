@@ -1,7 +1,9 @@
+require('dotenv').config()
 
 export default {
   srcDir: 'src',
   mode: 'universal',
+
   dev: process.env.NODE_ENV !== 'production',
   /*
   ** Headers of the page
