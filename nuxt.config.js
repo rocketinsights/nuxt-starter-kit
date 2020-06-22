@@ -5,6 +5,11 @@ export default {
   mode: 'universal',
 
   dev: process.env.NODE_ENV !== 'production',
+
+  serverMiddleware: [
+    '~/middleware/redirects'
+  ],
+
   /*
   ** Headers of the page
   */
