@@ -1,4 +1,25 @@
 require('dotenv').config()
+const toLower = require('lodash/toLower')
+const toBoolean = (val) => toLower(val) === 'true'
+
+const IS_DEV = process.env.NODE_ENV === 'development'
+const IS_STAGING = toBoolean(process.env.IS_STAGING)
+const USE_DOMAIN = !!process.env.DOMAIN
+let BASE_URL
+
+if (IS_DEV) {
+  BASE_URL = 'http://localhost:3000'
+} else if (USE_DOMAIN) {
+  BASE_URL = `https://${process.env.DOMAIN}`
+} else if (IS_STAGING) {
+  BASE_URL = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+}
+
+// we also need these server side so we have to add them here since
+// they're determined by the existing env vars
+const API_BASE_URL = `${BASE_URL}/api`
+process.env.BASE_URL = BASE_URL
+process.env.API_BASE_URL = API_BASE_URL
 
 export default {
   srcDir: 'src',
@@ -7,7 +28,9 @@ export default {
   dev: process.env.NODE_ENV !== 'production',
 
   serverMiddleware: [
-    '~/middleware/redirects'
+    '~/serverMiddleware/redirects',
+    '~/serverMiddleware/database',
+    { path: 'api', handler: '~/serverMiddleware/api' }
   ],
 
   /*
