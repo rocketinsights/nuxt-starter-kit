@@ -3,6 +3,7 @@ import users from './users'
 
 export default function (req, res, next) {
   try {
+    // route all /api/users requests to our users file
     if (req.originalUrl.indexOf('/api/users/') !== -1) {
       return users(req, res)
     }
