@@ -44,6 +44,6 @@ const buildNuxt = async () => {
 }
 
 module.exports = async () => {
-  const nuxt = await buildNuxt()
-  process.env.buildDir = nuxt.options.buildDir
+  global.nuxt = await buildNuxt()
+  process.env.buildDir = global.nuxt.options.buildDir
 }
