@@ -13,10 +13,8 @@
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
-    "dotenv": "^8.2.0",
     "gsap": "^3.3.4",
     "lodash": "^4.17.15",
-    "mongoose": "^5.9.19",
     "nuxt": "^2.13.0"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-require('dotenv').config()
 const toLower = require('lodash/toLower')
 const toBoolean = (val) => toLower(val) === 'true'
 
@@ -29,7 +28,6 @@ export default {
 
   serverMiddleware: [
     '~/serverMiddleware/redirects',
-    '~/serverMiddleware/database',
     { path: 'api', handler: '~/serverMiddleware/api' }
   ],
 

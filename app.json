@@ -1,21 +1,11 @@
 {
   "env": {
-    "MONGO_URI": {
-      "required": true
-    },
-    "SEGMENT_WRITE_KEY": {
-      "required": false
-    },
     "DOMAIN": {
       "required": false
     },
     "IS_STAGING": {
       "required": true,
       "value": false
-    },
-    "HOST": {
-      "required": true,
-      "value": "0.0.0.0"
     },
     "YARN_PRODUCTION": {
       "required": true,
