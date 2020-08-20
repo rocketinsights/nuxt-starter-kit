@@ -1,5 +1,8 @@
 {
   "env": {
+    "MONGO_URI": {
+      "required": true
+    },
     "DOMAIN": {
       "required": false
     },

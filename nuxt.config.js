@@ -1,4 +1,3 @@
-require('dotenv').config()
 const toLower = require('lodash/toLower')
 const toBoolean = (val) => toLower(val) === 'true'
 
