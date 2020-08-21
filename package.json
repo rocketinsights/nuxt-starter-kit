@@ -2,7 +2,7 @@
   "name": "nuxt-starter-kit",
   "version": "1.0.0",
   "description": "Nuxt with some helpful additions to get started for your typical production SSR app.",
-  "author": "Brandon Aaskov (Rocket Insights)",
+  "author": "Rocket Insights",
   "private": false,
   "scripts": {
     "dev": "nuxt",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
+    "dotenv": "^8.2.0",
     "gsap": "^3.3.4",
     "lodash": "^4.17.15",
     "nuxt": "^2.13.0"
