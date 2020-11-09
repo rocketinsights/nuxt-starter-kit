@@ -16,7 +16,7 @@
     "dotenv": "^8.2.0",
     "gsap": "^3.3.4",
     "lodash": "^4.17.15",
-    "nuxt": "^2.13.0"
+    "nuxt": "^2.14.7"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.3",

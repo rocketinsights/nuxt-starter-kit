@@ -23,8 +23,6 @@ process.env.API_BASE_URL = API_BASE_URL
 
 export default {
   srcDir: 'src',
-  mode: 'universal',
-
   dev: process.env.NODE_ENV !== 'production',
 
   serverMiddleware: [
@@ -66,8 +64,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/nuxt-client-init', mode: 'client' },
-    { src: '@/plugins/analytics', mode: 'client' },
+    { src: '@/plugins/nuxt-client-init', ssr: false },
+    { src: '@/plugins/analytics', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
