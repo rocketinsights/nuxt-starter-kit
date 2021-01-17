@@ -26,17 +26,6 @@ export default {
 
   dev: process.env.NODE_ENV !== 'production',
 
-  env: {
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
-    FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
-    FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
-    FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
-    FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
-    FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID
-  },
-
   serverMiddleware: [
     '~/serverMiddleware/redirects',
     { path: 'api', handler: '~/serverMiddleware/api' }
@@ -76,8 +65,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/nuxt-client-init', ssr: false },
-    { src: '@/plugins/analytics', ssr: false },
+    { src: '@/plugins/nuxt-client-init', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -87,8 +75,33 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-  ],
+  modules: ['@nuxtjs/firebase'],
+  firebase: {
+    config: {
+      apiKey: process.env.FIREBASE_API_KEY,
+      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      appId: process.env.FIREBASE_APP_ID,
+      measurementId: process.env.FIREBASE_MEASUREMENT_ID
+    },
+    services: {
+      auth: {
+        persistence: 'local', // default
+        initialize: {
+          onAuthStateChangedMutation: 'auth/setUser',
+          onAuthStateChangedAction: 'auth/onAuthStateChange',
+          subscribeManually: false
+        },
+        ssr: false, // default
+        // emulatorPort: 9099,
+        // emulatorHost: 'http://localhost'
+      },
+      analytics: true
+    }
+  },
   /*
   ** Build configuration
   */

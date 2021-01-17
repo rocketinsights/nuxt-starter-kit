@@ -2,7 +2,7 @@
   <section>
     <nav>
       <h3>{{user && user.displayName}}</h3>
-      <button @click.stop.prevent="signInWithRedirect">
+      <button @click.stop.prevent="signInWithRedirect('google')">
         Sign In With Google
       </button>
       <button @click.stop.prevent="signOut">

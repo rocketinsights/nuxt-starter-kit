@@ -1,5 +1,19 @@
 import _ from 'lodash'
-import { auth, getRedirectResult, signInWith } from '@/services/firebase.client'
+
+const getRedirectResult = async ($fire) => {
+  try {
+    const result  = await $fire.auth.getRedirectResult()
+    if (!result.credential) return null
+    return result.user
+  } catch (err) {
+    console.error('getRedirectResult error', {
+      code: err.code,
+      message: err.message,
+      email: err.email,
+      credential: err.credential
+    })
+  }
+}
 
 const state = () => {
   return {
@@ -16,20 +30,25 @@ const mutations = {
 }
 
 const actions = {
-  async init ({ commit, state }) {
-    const redirectUser = await getRedirectResult()
+  async init ({ commit }) {
+    const redirectUser = await getRedirectResult(this.$fire)
     if (redirectUser) commit('setUser', redirectUser)
-
-    auth.onAuthStateChanged((user) => {
-      if (user) commit('setUser', user)
-    })
   },
-  signInWithRedirect () {
-    signInWith('google')
+  signInWithRedirect (ctx, provider) {
+    switch (_.toLower(provider)) {
+      case 'google':
+        this.$fire.auth.signInWithRedirect(new this.$fireModule.auth.GoogleAuthProvider())
+        break
+    }
   },
-  async signOut ({ commit, state }) {
-    await auth.signOut()
-    commit('setUser', null)
+  onAuthStateChange ({ commit }, { authUser, claims }) {
+    if (!authUser) {
+      this.$fire.auth.signOut()
+      commit('setUser', null)
+      return
+    }
+    
+    commit('setUser', authUser)
   }
 }
 
