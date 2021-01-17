@@ -15,13 +15,13 @@ const getRedirectResult = async ($fire) => {
   }
 }
 
-const state = () => {
+export const state = () => {
   return {
     user: null
   }
 }
 
-const mutations = {
+export const mutations = {
   setUser (state, userData) {
     const fields = ['uid', 'displayName', 'email', 'emailVerified', 'photoURL']
     const user = _.pick(userData, fields)
@@ -29,7 +29,7 @@ const mutations = {
   }
 }
 
-const actions = {
+export const actions = {
   async init ({ commit }) {
     const redirectUser = await getRedirectResult(this.$fire)
     if (redirectUser) commit('setUser', redirectUser)
@@ -52,7 +52,4 @@ const actions = {
   }
 }
 
-const getters = {}
-
-export const strict = false
-export default { state, mutations, actions, getters }
+export const getters = {}

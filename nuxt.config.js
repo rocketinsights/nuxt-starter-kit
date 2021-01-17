@@ -99,7 +99,8 @@ export default {
         // emulatorPort: 9099,
         // emulatorHost: 'http://localhost'
       },
-      analytics: true
+      analytics: true,
+      storage: true
     }
   },
   /*

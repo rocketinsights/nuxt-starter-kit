@@ -15,13 +15,16 @@
         {{movie.title}}
       </li>
     </ul>
+    <file-uploader />
   </section>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex'
+import FileUploader from '@/components/FileUploader'
 
 export default {
+  components: { FileUploader },
   computed: {
     ...mapGetters({
       byStudio: 'movies/byStudio'
