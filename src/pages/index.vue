@@ -16,15 +16,17 @@
       </li>
     </ul>
     <file-uploader />
+    <video-player />
   </section>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex'
 import FileUploader from '@/components/FileUploader'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export default {
-  components: { FileUploader },
+  components: { FileUploader, VideoPlayer },
   computed: {
     ...mapGetters({
       byStudio: 'movies/byStudio'
