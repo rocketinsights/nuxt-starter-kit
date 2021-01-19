@@ -26,9 +26,13 @@ export default {
 
   dev: process.env.NODE_ENV !== 'production',
 
+  env: { // ENV vars we want to make available client-side
+    MUX_DATA_ENV_KEY: process.env.MUX_DATA_ENV_KEY
+  },
+
   serverMiddleware: [
     '~/serverMiddleware/redirects',
-    { path: 'api', handler: '~/serverMiddleware/api' }
+    { path: "api", handler: "~/serverMiddleware/api" }
   ],
 
   /*
