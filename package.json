@@ -1,8 +1,7 @@
 {
   "name": "nuxt-starter-kit",
-  "version": "1.0.0",
-  "description": "Nuxt with some helpful additions to get started for your typical production SSR app.",
-  "author": "Rocket Insights",
+  "description": "Nuxt with some killer tools for rapid prototyping",
+  "author": "Brandon Aaskov (Rocket Insights)",
   "private": false,
   "scripts": {
     "dev": "NODE_ENV=development nuxt",
