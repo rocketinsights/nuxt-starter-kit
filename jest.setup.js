@@ -1,10 +1,12 @@
 import _ from "lodash"
 import { Nuxt, Builder } from "nuxt"
 import nuxtConfig from "./nuxt.config"
+import 'regenerator-runtime/runtime'
 
 const resetConfig = {
   loading: false,
   loadingIndicator: false,
+  telemetry: false,
   fetch: {
     client: false,
     server: false
@@ -33,7 +35,7 @@ const resetConfig = {
 
 const buildNuxt = async () => {
   const config = Object.assign({}, nuxtConfig, resetConfig, {
-    mode: "spa",
+    ssr: false,
     srcDir: nuxtConfig.srcDir,
     ignore: ["**/components/**/*", "**/layouts/**/*", "**/pages/**/*"]
   })

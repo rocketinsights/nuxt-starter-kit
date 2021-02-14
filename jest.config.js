@@ -1,5 +1,6 @@
 module.exports = {
   globalSetup: "<rootDir>/jest.setup.js",
+  setupFilesAfterEnv: ["<rootDir>/jest.runtime.js"],
   globalTeardown: "<rootDir>/jest.teardown.js",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
@@ -15,4 +16,4 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ["<rootDir>/src/store/**/*.(vue|js)"],
   forceExit: !!process.env.CI // almost every CI platform sets this by default
-};
+}
