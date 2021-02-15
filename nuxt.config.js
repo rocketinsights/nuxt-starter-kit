@@ -22,19 +22,16 @@ process.env.BASE_URL = BASE_URL
 process.env.API_BASE_URL = API_BASE_URL
 
 export default {
+  target: 'static',
   srcDir: 'src',
-
   dev: process.env.NODE_ENV !== 'production',
-
   env: { // ENV vars we want to make available client-side
     MUX_DATA_ENV_KEY: process.env.MUX_DATA_ENV_KEY
   },
-
   serverMiddleware: [
     '~/serverMiddleware/redirects',
     { path: "api", handler: "~/serverMiddleware/api" }
   ],
-
   /*
   ** Headers of the page
   */
