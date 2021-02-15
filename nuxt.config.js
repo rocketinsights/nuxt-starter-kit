@@ -75,7 +75,8 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts'
   ],
   /*
   ** Nuxt.js modules
@@ -106,6 +107,11 @@ export default {
       },
       analytics: true,
       storage: true
+    }
+  },
+  googleFonts: {
+    families: {
+      Inter: true
     }
   },
   /*
