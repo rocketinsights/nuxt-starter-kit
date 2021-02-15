@@ -25,10 +25,14 @@
     "sass": "^1.29.0"
   },
   "devDependencies": {
+    "@nuxtjs/google-fonts": "^1.2.0",
+    "@nuxtjs/tailwindcss": "^3.4.2",
     "@vue/test-utils": "^1.0.3",
+    "autoprefixer": "^9",
     "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
     "node-sass": "^4.14.1",
+    "postcss": "^7",
     "sass-loader": "^10.0.5",
     "vue-jest": "^4.0.0-beta.3"
   }
