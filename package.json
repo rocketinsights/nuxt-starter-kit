@@ -21,7 +21,7 @@
     "gsap": "^3.3.4",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.1",
-    "nuxt": "^2.14.12",
+    "nuxt": "^2.15.7",
     "sass": "^1.29.0"
   },
   "devDependencies": {
