@@ -34,7 +34,7 @@
                 Google
               </button>
             </li>
-            <li class="px-4 py-4 sm:px-6">
+            <!-- <li class="px-4 py-4 sm:px-6">
               <button
                 @click.stop.prevent="signInWithRedirect('facebook')"
                 type="button"
@@ -57,7 +57,7 @@
                 />
                 Twitter
               </button>
-            </li>
+            </li> -->
           </ul>
         </main>
       </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
