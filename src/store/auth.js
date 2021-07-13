@@ -36,8 +36,17 @@ export const actions = {
   },
   signInWithRedirect (ctx, provider) {
     switch (_.toLower(provider)) {
+      case 'github':
+        this.$fire.auth.signInWithRedirect(new this.$fireModule.auth.GithubAuthProvider())
+        break
       case 'google':
         this.$fire.auth.signInWithRedirect(new this.$fireModule.auth.GoogleAuthProvider())
+        break
+      case 'facebook':
+        this.$fire.auth.signInWithRedirect(new this.$fireModule.auth.FacebookAuthProvider())
+        break
+      case 'twitter':
+        this.$fire.auth.signInWithRedirect(new this.$fireModule.auth.TwitterAuthProvider())
         break
     }
   },

@@ -72,6 +72,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/fontawesome',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts'
   ],
@@ -104,6 +105,17 @@ export default {
       },
       analytics: true,
       storage: true
+    }
+  },
+  fontawesome: {
+    icons: {
+      // solid: true, // don't do this
+      brands: [ // do this instead
+        'faFacebook',
+        'faGithub',
+        'faGoogle',
+        'faTwitter',
+      ],
     }
   },
   googleFonts: {
