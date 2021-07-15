@@ -168,12 +168,12 @@
                 <span class="sr-only">Open user menu</span>
        
                 <img
-                v-if="userInfo"
+                  v-if="isUserAuth"
                   class="h-8 w-8 rounded-full"
-                  :src="this.userInfo.photoURL"
+                  :src="this.user.photoURL"
                   alt="Avatar photo"
                 />
-                <img v-else class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img v-else class="h-8 w-8 rounded-full" :src="require(`../assets/images/${imgURL}`)" alt="">
               
               </button>
             </div>
@@ -207,23 +207,23 @@
                 id="user-menu-item-1"
                 >Settings</a
               >
-              <div @click.stop.prevent="signInWithRedirect('google')">
+              <div v-if="!isUserAuth" @click.stop.prevent="signInWithRedirect('google')">
                 <a
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"
-                  id="user-menu-item-3"
+                  id="user-menu-item-2"
                   >Sign in</a
                 >
                 </div>
-                <div @click.stop.prevent="signOut">
+                <div v-if="isUserAuth" @click.stop.prevent="signOut">
                     <a
                     href="#"
                     class="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
                     tabindex="-1"
-                    id="user-menu-item-2"
+                    id="user-menu-item-3"
                     >Sign out</a
                     >
                 </div>
@@ -261,22 +261,31 @@
       </div>
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center px-4">
-            <template v-if="userInfo">
+        <template v-if="isUserAuth">
           <div class="flex-shrink-0">
             <img
               class="h-10 w-10 rounded-full"
-              :src="this.userInfo.photoURL"
+              :src="this.user.photoURL"
               alt=""
             />
           </div>
-          <div  class="ml-3">
+          <div class="ml-3">
             <div class="text-base font-medium text-gray-800">
-              {{ this.userInfo.displayName }}
+              {{ this.user.displayName }}
             </div>
             <div  class="text-sm font-medium text-gray-500">
-              {{ this.userInfo.email }}
+              {{ this.user.email }}
             </div>
         
+          </div>
+          </template>
+          <template v-else>
+          <div class="flex-shrink-0">
+            <img
+              class="h-10 w-10 rounded-full"
+              :src="require(`../assets/images/${imgURL}`)"
+              alt=""
+            />
           </div>
           </template>
           <button
@@ -301,7 +310,7 @@
             </svg>
           </button>
         </div>
-        <div v-if="userInfo" class="mt-3 space-y-1">
+        <div v-if="isUserAuth" class="mt-3 space-y-1">
           <a
             href="#"
             class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
@@ -312,13 +321,15 @@
             class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
             >Settings</a
           >
+          <div @click.stop.prevent="signOut">
           <a
             href="#"
             class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
             >Sign out</a
           >
+          </div>
         </div>
-        <div v-else class="mt-3 space-y-1">
+        <div v-else class="mt-3 space-y-1" @click.stop.prevent="signInWithRedirect('google')"> 
           <a
             href="#"
             class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
@@ -331,25 +342,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
 
   props: { imgURL: String, user: Object },
   data() {
     return {
-      dropdown: false,
-      userInfo: this.user,
+      dropdown: false
     };
   },
-  watch:{
-      user: function() {
-          this.userInfo=this.user
-      }
+  mounted() {
+  this.authAction()
+},
+  computed: {
+      ...mapGetters({ 
+          getUser: "auth/getUser",
+          isUserAuth: "auth/isUserAuth"
+      })
   },
   methods: {
     ...mapActions({
       signInWithRedirect: "auth/signInWithRedirect",
       signOut: "auth/signOut",
+      authAction: "auth/authAction"
     })
   }
 };

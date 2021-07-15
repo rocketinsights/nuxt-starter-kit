@@ -58,7 +58,7 @@ export const actions = {
         break;
     }
   },
-  onAuthStateChange({ commit }, { authUser, claims }) {
+  onAuthStateChanged({ commit }, { authUser, claims }) {
     if (!authUser) {
       this.$fire.auth.signOut();
       commit("setUser", null);
@@ -76,7 +76,23 @@ export const actions = {
         console.error("Sign Out Error", error);
       }
     );
+  },
+  authAction({ commit }) {
+    this.$fire.auth.onAuthStateChanged(user => {
+      if (user) {
+        commit("setUser", user);
+      } else {
+        commit("setUser", null);
+      }
+    });
   }
 };
 
-export const getters = {};
+export const getters = {
+  getUser(state) {
+    return state.user;
+  },
+  isUserAuth(state) {
+    return _.isEmpty(state.user) ? false : true;
+  }
+};

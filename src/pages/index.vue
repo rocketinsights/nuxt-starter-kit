@@ -1,14 +1,6 @@
 <template>
   <section>
-    <nav>
-      <h3>{{ user && user.displayName }}</h3>
-      <button @click.stop.prevent="signInWithRedirect('google')">
-        Sign In With Google
-      </button>
-      <button @click.stop.prevent="signOut">
-        Sign Out
-      </button>
-    </nav>
+    <nav></nav>
     <NavBar imgURL="rocket-insights-logo.svg" :user="user" />
     <h2 class="title">Disney Movies</h2>
     <ul class="movies">
@@ -32,7 +24,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      byStudio: "movies/byStudio"
+      byStudio: "movies/byStudio",
+      getUser: "auth/getUser",
+      isUserAuth: "auth/isUserAuth"
     }),
     ...mapState({
       user: ({ auth }) => auth.user
@@ -41,10 +35,14 @@ export default {
       return this.byStudio("Disney");
     }
   },
+  mounted() {
+    this.authAction();
+  },
   methods: {
     ...mapActions({
       signInWithRedirect: "auth/signInWithRedirect",
-      signOut: "auth/signOut"
+      signOut: "auth/signOut",
+      authAction: "auth/authAction"
     })
   }
 };
