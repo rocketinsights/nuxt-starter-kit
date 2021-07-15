@@ -1,85 +1,84 @@
-require('dotenv').config()
-const toLower = require('lodash/toLower')
-const toBoolean = (val) => toLower(val) === 'true'
+require("dotenv").config();
+const toLower = require("lodash/toLower");
+const toBoolean = val => toLower(val) === "true";
 
-const IS_DEV = process.env.NODE_ENV === 'development'
-const IS_STAGING = toBoolean(process.env.IS_STAGING)
-const USE_DOMAIN = !!process.env.DOMAIN
-let BASE_URL
+const IS_DEV = process.env.NODE_ENV === "development";
+const IS_STAGING = toBoolean(process.env.IS_STAGING);
+const USE_DOMAIN = !!process.env.DOMAIN;
+let BASE_URL;
 
 if (IS_DEV) {
-  BASE_URL = 'http://localhost:3000'
+  BASE_URL = "http://localhost:3000";
 } else if (USE_DOMAIN) {
-  BASE_URL = `https://${process.env.DOMAIN}`
+  BASE_URL = `https://${process.env.DOMAIN}`;
 } else if (IS_STAGING) {
-  BASE_URL = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
+  BASE_URL = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`;
 }
 
 // we also need these server side so we have to add them here since
 // they're determined by the existing env vars
-const API_BASE_URL = `${BASE_URL}/api`
-process.env.BASE_URL = BASE_URL
-process.env.API_BASE_URL = API_BASE_URL
+const API_BASE_URL = `${BASE_URL}/api`;
+process.env.BASE_URL = BASE_URL;
+process.env.API_BASE_URL = API_BASE_URL;
 
 export default {
-  target: 'static',
-  srcDir: 'src',
-  dev: process.env.NODE_ENV !== 'production',
-  env: { // ENV vars we want to make available client-side
+  target: "static",
+  srcDir: "src",
+  dev: process.env.NODE_ENV !== "production",
+  env: {
+    // ENV vars we want to make available client-side
     MUX_DATA_ENV_KEY: process.env.MUX_DATA_ENV_KEY
   },
   serverMiddleware: [
-    '~/serverMiddleware/redirects',
+    "~/serverMiddleware/redirects",
     { path: "api", handler: "~/serverMiddleware/api" }
   ],
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || "",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || ""
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: {
-    color: '#1281BA',
-    height: '2px'
+    color: "#1281BA",
+    height: "2px"
   },
   /*
-  ** Global CSS
-  */
-  css: [
-    '@/assets/styles/globals.scss',
-  ],
+   ** Global CSS
+   */
+  css: ["@/assets/styles/globals.scss"],
   styleResources: {
-    scss: ['@/assets/styles/variables.scss'],
+    scss: ["@/assets/styles/variables.scss"]
   },
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    { src: '@/plugins/nuxt-client-init', ssr: false }
-  ],
+   ** Plugins to load before mounting the App
+   */
+  plugins: [{ src: "@/plugins/nuxt-client-init", ssr: false }],
   /*
-  ** Nuxt.js dev-modules
-  */
+   ** Nuxt.js dev-modules
+   */
   buildModules: [
-    '@nuxtjs/fontawesome',
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts'
+    "@nuxtjs/fontawesome",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts"
   ],
   /*
-  ** Nuxt.js modules
-  */
-  modules: ['@nuxtjs/firebase'],
+   ** Nuxt.js modules
+   */
+  modules: ["@nuxtjs/firebase", "@nuxt/http"],
   firebase: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
@@ -93,13 +92,13 @@ export default {
     },
     services: {
       auth: {
-        persistence: 'local', // default
+        persistence: "local", // default
         initialize: {
-          onAuthStateChangedMutation: 'auth/setUser',
-          onAuthStateChangedAction: 'auth/onAuthStateChange',
+          onAuthStateChangedMutation: "auth/setUser",
+          onAuthStateChangedAction: "auth/onAuthStateChange",
           subscribeManually: false
         },
-        ssr: false, // default
+        ssr: false // default
         // emulatorPort: 9099,
         // emulatorHost: 'http://localhost'
       },
@@ -110,12 +109,13 @@ export default {
   fontawesome: {
     icons: {
       // solid: true, // don't do this
-      brands: [ // do this instead
-        'faFacebook',
-        'faGithub',
-        'faGoogle',
-        'faTwitter',
-      ],
+      brands: [
+        // do this instead
+        "faFacebook",
+        "faGithub",
+        "faGoogle",
+        "faTwitter"
+      ]
     }
   },
   googleFonts: {
@@ -123,14 +123,16 @@ export default {
       Inter: true
     }
   },
+  http: {
+    // proxyHeaders: false
+  },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {}
   }
-}
+};

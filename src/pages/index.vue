@@ -1,49 +1,52 @@
 <template>
   <section>
-    <nav>
-      <h3>{{user && user.displayName}}</h3>
-      <button @click.stop.prevent="signInWithRedirect('google')">
-        Sign In With Google
-      </button>
-      <button @click.stop.prevent="signOut">
-        Sign Out
-      </button>
-    </nav>
     <h2 class="title">Disney Movies</h2>
     <ul class="movies">
       <li v-for="movie in disneyMovies" :key="movie.title">
-        {{movie.title}}
+        {{ movie.title }}
       </li>
     </ul>
     <file-uploader />
-    
+    <h2 class="title">Rocket Employees</h2>
+    <!-- <ul>
+      <li
+        v-for="employee in rocketEmployees"
+        :key="employee.items.sys.space.id"
+      >
+        {{ employee }}
+      </li> -->
+    </ul>
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
-import FileUploader from '@/components/FileUploader'
+import { mapGetters, mapActions, mapState } from "vuex";
+import FileUploader from "@/components/FileUploader";
 
 export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
-      byStudio: 'movies/byStudio'
+      byStudio: "movies/byStudio",
+      getEmployees: "rocket/getEmployees"
     }),
     ...mapState({
       user: ({ auth }) => auth.user
     }),
-    disneyMovies () {
-      return this.byStudio('Disney')
-    }
+    disneyMovies() {
+      return this.byStudio("Disney");
+    },
+    // rocketEmployees() {
+    //   return this.getEmployees();
+    // }
   },
   methods: {
     ...mapActions({
-      signInWithRedirect: 'auth/signInWithRedirect',
-      signOut: 'auth/signOut'
+      signInWithRedirect: "auth/signInWithRedirect",
+      signOut: "auth/signOut"
     })
   }
-}
+};
 </script>
 
 <style>
