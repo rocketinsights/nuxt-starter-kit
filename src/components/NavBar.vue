@@ -327,11 +327,10 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  props: { user: Object },
+  props: { logoPath: String, user: Object },
   data() {
     return {
       dropdown: false,
-      logoPath: require('@/assets/images/rocket-insights-logo.svg')
     };
   },
   mounted() {

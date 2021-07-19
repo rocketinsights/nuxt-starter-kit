@@ -9,6 +9,7 @@
         Sign Out
       </button>
     </nav>
+    <NavBar logo-path="/rocket-insights-logo.svg" :user="user" />
     <h2 class="title">Disney Movies</h2>
     <ul class="movies">
       <li v-for="movie in disneyMovies" :key="movie.title">
@@ -23,12 +24,15 @@
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex'
 import FileUploader from '@/components/FileUploader'
+import NavBar from '@/components/NavBar'
 
 export default {
-  components: { FileUploader },
+  components: { FileUploader, NavBar },
   computed: {
     ...mapGetters({
-      byStudio: 'movies/byStudio'
+      byStudio: 'movies/byStudio',
+      getUser: 'auth/getUser',
+      isUserAuth: 'auth/isUserAuth'
     }),
     ...mapState({
       user: ({ auth }) => auth.user
