@@ -79,7 +79,10 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: ['@nuxtjs/firebase'],
+  modules: ['@nuxtjs/firebase', '@nuxt/http'],
+  http: {
+    // proxyHeaders: false
+  },
   firebase: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,

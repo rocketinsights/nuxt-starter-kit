@@ -28,13 +28,18 @@ export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
-      byStudio: 'movies/byStudio'
+      byStudio: 'movies/byStudio',
+      showEmployees: 'rocket/showEmployees'
     }),
     ...mapState({
-      user: ({ auth }) => auth.user
+      user: ({ auth }) => auth.user,
+      employees: ({ rocket }) => rocket.employees
     }),
     disneyMovies () {
       return this.byStudio('Disney')
+    },
+    apiEmployees () {
+      return this.showEmployees()
     }
   },
   methods: {
