@@ -1,15 +1,8 @@
 <template>
   <section>
     <nav>
-      <h3>{{user && user.displayName}}</h3>
-      <button @click.stop.prevent="signInWithRedirect('google')">
-        Sign In With Google
-      </button>
-      <button @click.stop.prevent="signOut">
-        Sign Out
-      </button>
+      <NavBar logo-path="/rocket-insights-logo.svg" :user="user" />
     </nav>
-    <NavBar logo-path="/rocket-insights-logo.svg" :user="user" />
     <h2 class="title">Disney Movies</h2>
     <ul class="movies">
       <li v-for="movie in disneyMovies" :key="movie.title">

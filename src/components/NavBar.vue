@@ -193,7 +193,7 @@
                 <div v-if="!isUserAuth" @click.stop.prevent="signInWithRedirect('google')">
                 <a
                     href="#"
-                    class="block px-4 py-2 text-sm text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     role="menuitem"
                     tabindex="-1"
                     id="user-menu-item-2"
@@ -203,7 +203,7 @@
                 <div v-if="isUserAuth" @click.stop.prevent="signOut">
                     <a
                     href="#"
-                    class="block px-4 py-2 text-sm text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     role="menuitem"
                     tabindex="-1"
                     id="user-menu-item-3"
@@ -333,9 +333,6 @@ export default {
       dropdown: false,
     };
   },
-  mounted() {
-  this.authAction()
-},
   computed: {
       ...mapGetters({ 
           getUser: "auth/getUser",
