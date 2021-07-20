@@ -359,7 +359,7 @@ export default {
   top: 50%;
   left: 50%;
   margin: -25px 0 0 -25px;
-  width: 50px;
+  width: 35px;
   height: 50px;
   & .path {
     stroke: hsl(210, 70, 75);
