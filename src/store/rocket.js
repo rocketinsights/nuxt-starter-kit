@@ -10,13 +10,18 @@ const state = () => {
   
   const actions = {
     async getEmployees ({ commit }) {
-        employees = await this.$http.$get('https://jsonplaceholder.typicode.com/users')
-  
-        commit('setEmployees', employees)
+        try{
+            const employees = await this.$http.$get('https://jsonplaceholder.typicode.com/users')
+            console.log(employees)
+            commit('setEmployees', employees)
+        } catch(error) {
+            console.error(error.message)
+        }
+        
   }}
   
   const getters = {
-    showEmployees(state) {
+    employees(state) {
         return state.employees
     }
   };

@@ -37,15 +37,16 @@ export default {
     }),
     disneyMovies () {
       return this.byStudio('Disney')
-    },
-    apiEmployees () {
-      return this.showEmployees()
     }
+  },
+  mounted() {
+    this.getEmployees()
   },
   methods: {
     ...mapActions({
       signInWithRedirect: 'auth/signInWithRedirect',
-      signOut: 'auth/signOut'
+      signOut: 'auth/signOut',
+      getEmployees: 'rocket/getEmployees'
     })
   }
 }
