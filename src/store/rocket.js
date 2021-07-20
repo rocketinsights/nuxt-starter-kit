@@ -1,3 +1,4 @@
+import _ from 'lodash'
 const state = () => {
     return {employees: null}
   };
@@ -11,9 +12,9 @@ const state = () => {
   const actions = {
     async getEmployees ({ commit }) {
         try{
-            const employees = await this.$http.$get('https://jsonplaceholder.typicode.com/users')
+            const employees = await this.$http.$get(this.$config.contentfulFullURL)
             console.log(employees)
-            commit('setEmployees', employees)
+            commit('setEmployees', employees.items)
         } catch(error) {
             console.error(error.message)
         }
@@ -23,6 +24,11 @@ const state = () => {
   const getters = {
     employees(state) {
         return state.employees
+    },
+    filteredEmployeesData(state){
+        const fields = ['fields.name', 'fields.position', 'fields.profilePic.sys.id','sys.id']
+        return _.map(state.employees, e => _.pick(e, fields))
+        
     }
   };
   

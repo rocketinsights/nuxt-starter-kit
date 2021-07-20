@@ -135,5 +135,10 @@ export default {
     */
     extend (config, ctx) {
     }
+  }, 
+  publicRuntimeConfig: {
+    spacesId: process.env.CONTENTFUL_SPACES_ID,
+    contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+    contentfulFullURL: process.env.CONTENTFUL_FULL_URL
   }
 }

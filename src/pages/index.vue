@@ -9,11 +9,17 @@
         Sign Out
       </button>
     </nav>
-    <h2 class="title">Disney Movies</h2>
-    <ul class="movies">
-      <li v-for="movie in disneyMovies" :key="movie.title">
-        {{movie.title}}
+    <h2 class="title">Rocket Employees</h2>
+    <ul v-for="employee in filteredEmployeesData" :key="employee.sys.id">
+      <li >
+        Name: {{employee.fields.name}}
       </li>
+      <li >
+        Position: {{employee.fields.position}}
+      </li>
+      <!-- <li >
+        ID: {{employee.sys.id}}
+      </li> -->
     </ul>
     <file-uploader />
     
@@ -29,7 +35,8 @@ export default {
   computed: {
     ...mapGetters({
       byStudio: 'movies/byStudio',
-      showEmployees: 'rocket/showEmployees'
+      showEmployees: 'rocket/showEmployees',
+      filteredEmployeesData:'rocket/filteredEmployeesData'
     }),
     ...mapState({
       user: ({ auth }) => auth.user,
