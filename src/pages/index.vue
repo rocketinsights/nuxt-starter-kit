@@ -1,28 +1,20 @@
 <template>
   <section>
-    <nav>
-      <h3>{{user && user.displayName}}</h3>
-      <button @click.stop.prevent="signInWithRedirect('google')">
-        Sign In With Google
-      </button>
-      <button @click.stop.prevent="signOut">
-        Sign Out
-      </button>
-    </nav>
     <h2 class="title">Rocket Employees</h2>
-    <ul v-for="employee in filteredEmployeesData" :key="employee.sys.id">
+    <ul v-for="employee in employees" :key="employee.id">
       <li >
-        Name: {{employee.fields.name}}
+        Name: {{employee.name}}
       </li>
       <li >
-        Position: {{employee.fields.position}}
+        Position: {{employee.position}}
       </li>
+      <img :src="`${employee.imageUrl}`" />
+      <!-- Employee ID commented out for privacy -->
       <!-- <li >
-        ID: {{employee.sys.id}}
+        ID: {{employee.id}}
       </li> -->
     </ul>
     <file-uploader />
-    
   </section>
 </template>
 
@@ -34,17 +26,12 @@ export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
-      byStudio: 'movies/byStudio',
       showEmployees: 'rocket/showEmployees',
-      filteredEmployeesData:'rocket/filteredEmployeesData'
     }),
     ...mapState({
       user: ({ auth }) => auth.user,
       employees: ({ rocket }) => rocket.employees
-    }),
-    disneyMovies () {
-      return this.byStudio('Disney')
-    }
+    })
   },
   mounted() {
     this.getEmployees()
