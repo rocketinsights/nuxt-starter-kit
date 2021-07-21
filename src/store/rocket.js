@@ -36,9 +36,6 @@ const state = () => {
   }}
   
   const getters = {
-    employees(state) {
-        return state.employees
-    },
   };
   
   export default { state, mutations, actions, getters };

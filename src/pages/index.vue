@@ -26,7 +26,6 @@ export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
-      showEmployees: 'rocket/showEmployees',
     }),
     ...mapState({
       user: ({ auth }) => auth.user,
