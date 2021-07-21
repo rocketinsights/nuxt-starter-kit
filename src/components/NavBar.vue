@@ -247,7 +247,7 @@
       </div>
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center px-4">
-        <template v-if="isUserAuth">
+          <template v-if="isUserAuth">
           <div class="flex-shrink-0">
             <img
               class="h-10 w-10 rounded-full"
@@ -265,7 +265,7 @@
         
           </div>
           </template>
-          <template v-else>
+          <template v-if="!isUserAuth">
           <div class="flex-shrink-0">
             <img
               class="h-10 w-10 rounded-full"
