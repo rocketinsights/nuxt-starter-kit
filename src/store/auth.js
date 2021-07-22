@@ -50,7 +50,7 @@ export const actions = {
         break
     }
   },
-  onAuthStateChange ({ commit }, { authUser, claims }) {
+  onAuthStateChanged ({ commit }, { authUser, claims }) {
     if (!authUser) {
       this.$fire.auth.signOut()
       commit('setUser', null)
@@ -58,7 +58,22 @@ export const actions = {
     }
     
     commit('setUser', authUser)
+  }, 
+  async signOut() {
+    try {
+        await this.$fire.auth.signOut()
+    } catch (error) {
+        console.log(error.message)
+    } 
   }
+ 
 }
 
-export const getters = {}
+export const getters = {
+    getUser(state) {
+      return state.user;
+    },
+    isUserAuth(state) {
+      return _.isEmpty(state.user) ? false : true;
+    }
+  };
