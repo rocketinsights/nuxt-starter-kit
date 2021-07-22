@@ -1,22 +1,20 @@
 <template>
   <section>
-    <nav>
-      <h3>{{user && user.displayName}}</h3>
-      <button @click.stop.prevent="signInWithRedirect('google')">
-        Sign In With Google
-      </button>
-      <button @click.stop.prevent="signOut">
-        Sign Out
-      </button>
-    </nav>
-    <h2 class="title">Disney Movies</h2>
-    <ul class="movies">
-      <li v-for="movie in disneyMovies" :key="movie.title">
-        {{movie.title}}
+    <h2 class="title">Rocket Employees</h2>
+    <ul v-for="employee in employees" :key="employee.id">
+      <li >
+        Name: {{employee.name}}
       </li>
+      <li >
+        Position: {{employee.position}}
+      </li>
+      <img :src="`${employee.imageUrl}`" />
+      <!-- Employee ID commented out for privacy -->
+      <!-- <li >
+        ID: {{employee.id}}
+      </li> -->
     </ul>
     <file-uploader />
-    
   </section>
 </template>
 
@@ -28,19 +26,20 @@ export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
-      byStudio: 'movies/byStudio'
     }),
     ...mapState({
-      user: ({ auth }) => auth.user
-    }),
-    disneyMovies () {
-      return this.byStudio('Disney')
-    }
+      user: ({ auth }) => auth.user,
+      employees: ({ rocket }) => rocket.employees
+    })
+  },
+  mounted() {
+    this.getEmployees()
   },
   methods: {
     ...mapActions({
       signInWithRedirect: 'auth/signInWithRedirect',
-      signOut: 'auth/signOut'
+      signOut: 'auth/signOut',
+      getEmployees: 'rocket/getEmployees'
     })
   }
 }

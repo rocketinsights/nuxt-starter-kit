@@ -79,7 +79,10 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: ['@nuxtjs/firebase'],
+  modules: ['@nuxtjs/firebase', '@nuxt/http'],
+  http: {
+    // proxyHeaders: false
+  },
   firebase: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
@@ -132,5 +135,10 @@ export default {
     */
     extend (config, ctx) {
     }
+  }, 
+  publicRuntimeConfig: {
+    spacesId: process.env.CONTENTFUL_SPACES_ID,
+    contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+    contentfulFullUrl: process.env.CONTENTFUL_FULL_URL
   }
 }
