@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2 class="title">Rocket Employees</h2>
-    <ul v-for="employee in employees" :key="employee.id">
+    <ul v-for="employee in employeeHeadshots" :key="employee.id">
       <li >
         Name: {{employee.name}}
       </li>
@@ -26,20 +26,23 @@ export default {
   components: { FileUploader },
   computed: {
     ...mapGetters({
+      missingFromSite: 'rocket/missingFromSite'
     }),
     ...mapState({
       user: ({ auth }) => auth.user,
-      employees: ({ rocket }) => rocket.employees
+      employeeHeadshots: ({ rocket }) => rocket.employeeHeadshots
     })
   },
   mounted() {
-    this.getEmployees()
+    this.getContentfulEmployees(), 
+    this.getSlackEmployees()
   },
   methods: {
     ...mapActions({
       signInWithRedirect: 'auth/signInWithRedirect',
       signOut: 'auth/signOut',
-      getEmployees: 'rocket/getEmployees'
+      getContentfulEmployees: 'rocket/getContentfulEmployees', 
+      getSlackEmployees: 'rocket/getSlackEmployees'
     })
   }
 }

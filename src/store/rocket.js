@@ -1,16 +1,22 @@
 import _ from 'lodash'
 const state = () => {
-    return {employees: null}
+    return {employeeHeadshots: null, 
+      employeesMissingFromSite: null
+    }
   };
   
   const mutations = {
-    setEmployees(state, employees) {
-        state.employees = employees;
+    setEmployeeHeadshots(state, employeeHeadshots) {
+        state.employeeHeadshots = employeeHeadshots;
+      },
+    setEmployeesMissingFromSite(state, payload) {
+        const uniqueEmployees = _.differenceBy(payload, state.employeeHeadshots, 'name')
+        state.employeesMissingFromSite = uniqueEmployees;
       }
   };
   
   const actions = {
-    async getEmployees ({ commit }) {
+    async getContentfulEmployees ({ commit }) {
         try{
             const employees = await this.$http.$get(this.$config.contentfulFullUrl)
             const itemsFields = ['fields.name', 'fields.position', 'fields.profilePic.sys.id','sys.id']
@@ -29,14 +35,36 @@ const state = () => {
                     }
             }
             )
-            commit('setEmployees', formattedFinalFilteredEmployees)
+            commit('setEmployeeHeadshots', formattedFinalFilteredEmployees)
         } catch(error) {
             console.error(error.message)
         }
         
-  }}
+  }, 
+    async getSlackEmployees ({ commit }) {
+      try{
+          // MUST ADD BEARER TOKEN BELOW
+          this.$http.setHeader('Authorization', 'INSERT BEARER TOKEN HERE' ) 
+          const slackEmployees = await this.$http.$get("https://cors-anywhere.herokuapp.com/https://slack.com/api/users.list?team_id=T03TAQHEU")
+          const notBotEmployees = _.filter(slackEmployees.members, e => !e.is_bot)
+          const formattedNotBotEmployees = _.map(notBotEmployees , item => {
+            return {
+                        name:item.profile.real_name, 
+                    }
+            }
+            )
+          commit('setEmployeesMissingFromSite', formattedNotBotEmployees)
+      } catch (error) {
+          console.error(error.message)
+      }
+    }
+
+  }
   
   const getters = {
+    missingFromSite (state) {
+      return state.employeesMissingFromSite
+    }
   };
   
   export default { state, mutations, actions, getters };
