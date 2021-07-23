@@ -43,10 +43,11 @@ const state = () => {
   }, 
     async getSlackEmployees ({ commit }) {
       try{
-          // MUST ADD BEARER TOKEN BELOW
-          this.$http.setHeader('Authorization', 'INSERT BEARER TOKEN HERE' ) 
+          this.$http.setHeader('Authorization', `Bearer ${this.$config.slackBearerToken}` ) 
           const slackEmployees = await this.$http.$get("https://cors-anywhere.herokuapp.com/https://slack.com/api/users.list?team_id=T03TAQHEU")
+          console.log("not filtered by is_bot", slackEmployees)
           const notBotEmployees = _.filter(slackEmployees.members, e => !e.is_bot)
+          console.log("filtered by is_bot",notBotEmployees)
           const formattedNotBotEmployees = _.map(notBotEmployees , item => {
             return {
                         name:item.profile.real_name, 

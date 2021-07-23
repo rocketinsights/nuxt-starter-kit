@@ -139,6 +139,7 @@ export default {
   publicRuntimeConfig: {
     spacesId: process.env.CONTENTFUL_SPACES_ID,
     contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-    contentfulFullUrl: process.env.CONTENTFUL_FULL_URL
+    contentfulFullUrl: process.env.CONTENTFUL_FULL_URL,
+    slackBearerToken: process.env.SLACK_BEARER_TOKEN
   }
 }
