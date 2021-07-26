@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import { WebClient } from '@slack/web-api'
+
 const state = () => {
     return {employeeHeadshots: null, 
       employeesMissingFromSite: null
@@ -43,8 +45,8 @@ const state = () => {
   }, 
     async getSlackEmployees ({ commit }) {
       try{
-          this.$http.setHeader('Authorization', `Bearer ${this.$config.slackBearerToken}` ) 
-          const slackEmployees = await this.$http.$get("https://cors-anywhere.herokuapp.com/https://slack.com/api/users.list?team_id=T03TAQHEU")
+          const web = new WebClient(this.$config.slackBearerToken)
+          const slackEmployees = await web.users.list({team_id:'T03TAQHEU'})
           console.log("not filtered by is_bot", slackEmployees)
           const notBotEmployees = _.filter(slackEmployees.members, e => !e.is_bot)
           console.log("filtered by is_bot",notBotEmployees)
