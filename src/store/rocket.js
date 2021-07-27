@@ -28,40 +28,35 @@ const state = () => {
             const mergedFilteredEmployees = _.values(_.merge(_.keyBy(includesFilteredEmployees,'sys.id'), _.keyBy(itemsFilteredEmployees,'fields.profilePic.sys.id' ) ))
             const formattedFinalFilteredEmployees = _.map(mergedFilteredEmployees, item => {
             return {
-                        id:item.sys.id, 
-                        name:item.fields.name, 
-                        position:item.fields.position, 
-                        imageId:item.fields.profilePic.sys.id,
-                        imageName:item.fields.file.fileName, 
-                        imageUrl:item.fields.file.url
+                      id:item.sys.id, 
+                      name:item.fields.name, 
+                      position:item.fields.position, 
+                      imageId:item.fields.profilePic.sys.id,
+                      imageName:item.fields.file.fileName, 
+                      imageUrl:item.fields.file.url
                     }
             }
             )
             commit('setEmployeeHeadshots', formattedFinalFilteredEmployees)
         } catch(error) {
             console.error(error.message)
-        }
-        
+        }      
   }, 
     async getSlackEmployees ({ commit }) {
       try{
           const web = new WebClient(this.$config.slackBearerToken)
           const slackEmployees = await web.users.list({team_id:'T03TAQHEU'})
-          console.log("not filtered by is_bot", slackEmployees)
-          const notBotEmployees = _.filter(slackEmployees.members, e => !e.is_bot)
-          console.log("filtered by is_bot",notBotEmployees)
-          const formattedNotBotEmployees = _.map(notBotEmployees , item => {
-            return {
-                        name:item.profile.real_name, 
-                    }
+          const formattedNotBotEmployees = _.reduce(slackEmployees.members, (list, user) => {
+            if(!user.is_bot) {
+              list.push({"name": user.profile.real_name})
             }
-            )
+            return list
+          },[])
           commit('setEmployeesMissingFromSite', formattedNotBotEmployees)
       } catch (error) {
           console.error(error.message)
       }
     }
-
   }
   
   const getters = {
