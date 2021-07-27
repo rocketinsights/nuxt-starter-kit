@@ -20,7 +20,7 @@ const state = () => {
   const actions = {
     async getContentfulEmployees ({ commit }) {
         try{
-            const employees = await this.$http.$get(this.$config.contentfulFullUrl)
+            const employees = await this.$http.$get(this.$config.contentfulApiUrl)
             const itemsFields = ['fields.name', 'fields.position', 'fields.profilePic.sys.id','sys.id']
             const itemsFilteredEmployees = _.map(employees.items, e => _.pick(e, itemsFields))
             const includesFields = ['fields.file.fileName', 'fields.file.url', 'sys.id']
